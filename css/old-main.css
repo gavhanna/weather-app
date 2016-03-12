@@ -1,0 +1,81 @@
+/*.hide {
+	display: none;
+}
+
+.current-weather {
+	font-family: 'Quicksand', sans-serif;
+	max-width: 500px;
+	max-height: 480px;
+	margin: auto;
+	position: absolute;
+	top: 0; left: 0; bottom: 0; right: 0;
+	background: #eea;
+	border-radius: 20px;
+	text-align: center;
+	border: 1px solid rgba(0, 0, 0, 0.5);
+	box-shadow:0 11px 11px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.current-weather h1 {
+	text-align: center;
+}
+
+.current-weather p {
+	font-weight: bolder;
+	font-size: 40px;
+}
+
+hr {
+	border-top: 1px solid #111;
+	max-width: 300px;
+}
+
+.forecast {
+	font-family: 'Quicksand', sans-serif;
+	max-width: 500px;
+	max-height: 480px;
+	margin: auto;
+	position: absolute;
+	top: 0; left: 0; bottom: 0; right: 0;
+	background: #eea;
+	border-radius: 20px;
+	text-align: center;
+	border: 1px solid rgba(0, 0, 0, 0.5);
+	box-shadow:0 11px 11px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+#icon {
+    width: 180px;
+    height: 180px;
+    font-size: 100px;
+    position: absolute;
+    margin: 0 auto;
+    top: -40%;
+    left: 31%;
+    background-color: #f75;
+    border-radius: 100%;
+    border-bottom-left-radius: 0px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+	box-shadow:11px 11px 11px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+	#icon:hover {
+		background-color: #f33;
+	}
+	#icon p {
+		position: relative;
+		left: -40px;
+		color: #333;
+		font-size: 20px;
+	}
+#icon .wi {
+    position: relative;
+    top: 15px;
+}
+
+.col-xs-4 {
+	padding: 1px;
+	font-size: 28px;
+	border: 1px solid rgba(0,0,0,0.3);
+	border-radius: 3px;
+}
+*/
