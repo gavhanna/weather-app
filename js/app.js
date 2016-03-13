@@ -1,4 +1,11 @@
 $(document).ready(function(){
+	$("#clouds").jQlouds({
+		minClouds : 3,
+		maxClouds : 7,
+		maxWidth : 150,
+		maxHeight : 80,
+		wind : true
+	});    
 	if (navigator.geolocation) {
 	  	navigator.geolocation.getCurrentPosition(function(position) {
 
@@ -107,8 +114,10 @@ $(document).ready(function(){
 					});
 				$("#weather").html("<i class='wi wi-forecast-io-" + data.currently.icon + "'></i> " + data.currently.summary);
 				$("#wind").html("<i class='wi wi-strong-wind'></i> " + ((data.currently.windSpeed) * 1.61).toFixed(1) + " km/h");
-				$("#chanceOfRain").html("<i class='wi wi-raindrop'></i> " + data.currently.precipProbability * 100 + "%");
+				$("#chanceOfRain").html("<i class='wi wi-raindrops'></i> " + data.currently.precipProbability * 100 + "%");
 				$("#chanceOfRain").append("<span class='subtext'>Chance of rain</span>");
+				$("#sunrise").html("<i class='wi wi-sunrise'></i> " + UNIXtoHour(data.daily.data[0].sunriseTime));
+				$("#sunset").html("<i class='wi wi-sunset'></i> " + UNIXtoHour(data.daily.data[0].sunsetTime));
 
 				// Function to append a certain amount of hours of forecast
 				var hourForecaster = function(number){
@@ -135,7 +144,7 @@ $(document).ready(function(){
 					}
 
 					var dayForecaster = function(number){
-					for (var i = 0; i < number; i++){
+					for (var i = 1; i < number; i++){
 						var	icon = data.daily.data[i].icon,
 							temperatureMax = parseInt((5/9) * (data.daily.data[i].temperatureMax - 32)),
 							temperatureMin = parseInt((5/9) * (data.daily.data[i].temperatureMin - 32)),
@@ -145,15 +154,15 @@ $(document).ready(function(){
 							sunset = UNIXtoHour(data.daily.data[i].sunsetTime),
 							visibility = ((data.daily.data[i].visibility * 1.61).toFixed(1)),
 							chanceOfRain = data.daily.data[i].precipProbability * 100,
-							cloudCover = data.daily.data[i].cloudCover * 100,
+							cloudCover = (data.daily.data[i].cloudCover * 100).toFixed(1),
 							days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
-							now = new Date(data.daily.data[i].time),
+							now = new Date(data.daily.data[i].time * 1000),
+							date = UNIXtoDay(data.daily.data[i].time);
 							day = days[now.getDay()];
-							console.log(now.getDay());
 
 						$("#forecast-daily").append(
 							"<div>" + 
-							"<p><strong>" + day + "</strong><br>" + 
+							"<p><strong>" + day + " " + date +"</strong><br>" + 
 							"<i class='icon wi wi-forecast-io-" + icon + "'></i></p>" +
 							"<p>" + summary +"</p>" + 
 							"<div class='row'>" + "<div class='col-xs-6'>" +
@@ -175,17 +184,11 @@ $(document).ready(function(){
 			      });
 					}
 			hourForecaster(12);
-			dayForecaster(8);
+			dayForecaster(7);
 				} // end of AJAX success function
 			}); // end of AJAX call
 		}); // end of getCurrentPosition
 	} // end of if
+
 }); // end ready
 
-$("#clouds").jQlouds({
-	minClouds : 3,
-	maxClouds : 7,
-	maxWidth : 150,
-	maxHeight : 80,
-	wind : true
-});    
