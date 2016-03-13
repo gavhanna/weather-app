@@ -786,10 +786,13 @@ footer {
   .forecast .col-xs-4 {
     background-color: rgba(200, 200, 200, 0.2);
     border-radius: 20px; }
+    .forecast .col-xs-4 .subtext {
+      font-size: 10px; }
   .forecast #forecast-daily p {
-    font-size: 15px; }
-    .forecast #forecast-daily p #daily-icon {
-      font-size: 40px; }
+    font-size: 18px; }
+
+.icon {
+  font-size: 40px; }
 
 @media (max-width: 500px) {
   h1 {

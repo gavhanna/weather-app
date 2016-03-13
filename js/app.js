@@ -105,11 +105,13 @@ $(document).ready(function(){
 					var time = UNIXtoHour(data.hourly.data[i].time);
 					var icon = data.hourly.data[i].icon;
 					var temperature = parseInt((5/9) * (data.hourly.data[i].temperature - 32));
+					var feelsLike = parseInt((5/9) * (data.hourly.data[i].apparentTemperature - 32));
 					var wind = (data.hourly.data[i].windSpeed * 1.61).toFixed(1);
 					$("#forecast-hour").append(
 						"<div class='col-xs-4'><p><strong>" + time + "</strong></p>" + 
-						"<p><i class='wi wi-forecast-io-" + icon + "'></i></p>" + 
+						"<p><i class='icon wi wi-forecast-io-" + icon + "'></i></p>" + 
 						"<p>" + temperature + "<i class='wi wi-celsius'></i>" +"</p>" + 
+						"<p class='subtext'>Feels like " + temperature + "<i class='wi wi-celsius'></i>" +"</p>" +
 						"<p><i class='wi wi-strong-wind'></i> " + wind + "km/h</p>" 
 						+ "</div>");
 					}
@@ -137,7 +139,7 @@ $(document).ready(function(){
 					$("#forecast-daily").append(
 						"<div>" + 
 						"<p><strong>" + day + "<sup>th</sup></strong><br>" + 
-						"<i id='daily-icon' class='wi wi-forecast-io-" + icon + "'></i></p>" +
+						"<i class='icon wi wi-forecast-io-" + icon + "'></i></p>" +
 						"<p>" + summary +"</p>" + 
 						"<div class='row'>" + "<div class='col-xs-6'>" +
 							"<p><strong>Max:</strong> " + temperatureMax + "<i class='wi wi-celsius'></i>" +"</p>" + 
