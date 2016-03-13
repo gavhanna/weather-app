@@ -183,7 +183,7 @@ $(document).ready(function(){
 			        mobileFirst : true
 			      });
 					}
-			hourForecaster(12);
+			hourForecaster(15);
 			dayForecaster(7);
 				} // end of AJAX success function
 			}); // end of AJAX call
