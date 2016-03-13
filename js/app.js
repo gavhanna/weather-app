@@ -136,19 +136,19 @@ $(document).ready(function(){
 					var cloudCover = data.daily.data[i].cloudCover * 100;
 					$("#forecast-daily").append(
 						"<div>" + 
-						"<p><strong>" + day + "<sup>th</sup></strong></p>" +
+						"<p><strong>" + day + "<sup>th</sup></strong><br>" + 
+						"<i id='daily-icon' class='wi wi-forecast-io-" + icon + "'></i></p>" +
+						"<p>" + summary +"</p>" + 
 						"<div class='row'>" + "<div class='col-xs-6'>" +
-							"<p><i class='wi wi-forecast-io-" + icon + "'></i></p>" + 
-							"<p>Max: " + temperatureMax + "<i class='wi wi-celsius'></i>" +"</p>" + 
-							"<p>Min: " + temperatureMin + "<i class='wi wi-celsius'></i>" +"</p>" + 
+							"<p><strong>Max:</strong> " + temperatureMax + "<i class='wi wi-celsius'></i>" +"</p>" + 
+							"<p><strong>Min:</strong> " + temperatureMin + "<i class='wi wi-celsius'></i>" +"</p>" + 
 							"<p><i class='wi wi-strong-wind'></i> " + wind + "km/h</p>" +
-							"<p>" + summary +"</p>" + 
+							"<p><strong>Chance of rain:</strong> " + chanceOfRain + "%</p>" +
 						"</div>" + "<div class='col-xs-6'>" +
-							"<p>Chance of rain: " + chanceOfRain + "%</p>" +
-							"<p>Sunrise: " + sunrise + "</p>" +
-							"<p>Sunset: " + sunset + "</p>" + 
-							"<p>Visibility: " + visibility + "km</p>" +
-							"<p>Cloud cover: " + cloudCover + "%</p>" +
+							"<p><strong>Sunrise:</strong> " + sunrise + "</p>" +
+							"<p><strong>Sunset:</strong> " + sunset + "</p>" + 
+							"<p><strong>Visibility:</strong> " + visibility + "km</p>" +
+							"<p><strong>Cloud cover:</strong> " + cloudCover + "%</p>" +
 						"</div>");
 					}
 					$('#forecast-daily').slick({
