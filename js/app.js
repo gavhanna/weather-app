@@ -113,10 +113,18 @@ $(document).ready(function(){
 						"<p><i class='wi wi-strong-wind'></i> " + wind + "km/h</p>" 
 						+ "</div>");
 					}
+					$('#forecast-hour').slick({
+						arrows : false,
+		        dots : true,
+		        rows : 1,
+		        slidesPerRow : 1
+		      });
 				}
 
-			// Function to append a certain amount of hours of forecast
-			var dayForecaster = function(number){
+
+
+
+				var dayForecaster = function(number){
 				for (var i = 0; i < number; i++){
 					var day = UNIXtoDay(data.daily.data[i].time);
 					var icon = data.daily.data[i].icon;
@@ -125,7 +133,7 @@ $(document).ready(function(){
 					var wind = (data.daily.data[i].windSpeed * 1.61).toFixed(1);
 					var summary = data.daily.data[i].summary;
 					$("#forecast-daily").append(
-						"<div class='col-xs-6'><p><strong>" + day + "<sup>th</sup></strong></p>" + 
+						"<div><p><strong>" + day + "<sup>th</sup></strong></p>" + 
 						"<p><i class='wi wi-forecast-io-" + icon + "'></i></p>" + 
 						"<p>Max: " + temperatureMax + "<i class='wi wi-celsius'></i>" +"</p>" + 
 						"<p>Min: " + temperatureMin + "<i class='wi wi-celsius'></i>" +"</p>" + 
@@ -133,7 +141,17 @@ $(document).ready(function(){
 						"<p>" + summary +"</p>" + 
 						"</div>");
 					}
+					$('#forecast-daily').slick({
+						arrows : false,
+		        dots : true,
+		        mobileFirst : true
+		      });
 				}
+
+
+
+
+
 			hourForecaster(9);
 			dayForecaster(8);
 				} // end of AJAX success function
@@ -149,3 +167,7 @@ $("#clouds").jQlouds({
 	maxHeight : 80,
 	wind : true
 });
+
+
+      
+    

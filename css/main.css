@@ -756,7 +756,8 @@ body {
     font-family: 'Righteous', cursive;
     font-size: 50px;
     font-weight: lighter;
-    color: #000; }
+    color: #000;
+    margin-top: -80px; }
 
 .current-weather p {
   font-size: 50px;
@@ -778,7 +779,7 @@ body {
   padding-bottom: 50px;
   margin-bottom: 50px; }
   .forecast p {
-    font-size: 18px; }
+    font-size: 25px; }
   .forecast .col-xs-4 {
     background-color: rgba(200, 200, 200, 0.2);
     border-radius: 20px; }
