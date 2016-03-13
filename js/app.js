@@ -112,7 +112,6 @@ $(document).ready(function(){
 						"<p>" + temperature + "<i class='wi wi-celsius'></i>" +"</p>" + 
 						"<p><i class='wi wi-strong-wind'></i> " + wind + "km/h</p>" 
 						+ "</div>");
-
 					}
 				}
 
@@ -133,7 +132,6 @@ $(document).ready(function(){
 						"<p><i class='wi wi-strong-wind'></i> " + wind + "km/h</p>" +
 						"<p>" + summary +"</p>" + 
 						"</div>");
-
 					}
 				}
 			hourForecaster(9);
@@ -143,3 +141,11 @@ $(document).ready(function(){
 		}); // end of getCurrentPosition
 	} // end of if
 }); // end ready
+
+$("#clouds").jQlouds({
+	minClouds : 3,
+	maxClouds : 5,
+	maxWidth : 150,
+	maxHeight : 80,
+	wind : true
+});

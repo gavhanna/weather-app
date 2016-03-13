@@ -742,6 +742,9 @@ html {
 .pace.pace-inactive {
   display: none; }
 
+#clouds {
+  z-index: -1; }
+
 body {
   color: #000;
   font-family: Quicksand, sans-serif; }
