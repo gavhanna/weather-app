@@ -121,9 +121,6 @@ $(document).ready(function(){
 		      });
 				}
 
-
-
-
 				var dayForecaster = function(number){
 				for (var i = 0; i < number; i++){
 					var day = UNIXtoDay(data.daily.data[i].time);
@@ -132,13 +129,26 @@ $(document).ready(function(){
 					var temperatureMin = parseInt((5/9) * (data.daily.data[i].temperatureMin - 32));
 					var wind = (data.daily.data[i].windSpeed * 1.61).toFixed(1);
 					var summary = data.daily.data[i].summary;
+					var sunrise = UNIXtoHour(data.daily.data[i].sunriseTime);
+					var sunset = UNIXtoHour(data.daily.data[i].sunsetTime);
+					var visibility = ((data.daily.data[i].visibility * 1.61).toFixed(1));
+					var chanceOfRain = data.daily.data[i].precipProbability * 100;
+					var cloudCover = data.daily.data[i].cloudCover * 100;
 					$("#forecast-daily").append(
-						"<div><p><strong>" + day + "<sup>th</sup></strong></p>" + 
-						"<p><i class='wi wi-forecast-io-" + icon + "'></i></p>" + 
-						"<p>Max: " + temperatureMax + "<i class='wi wi-celsius'></i>" +"</p>" + 
-						"<p>Min: " + temperatureMin + "<i class='wi wi-celsius'></i>" +"</p>" + 
-						"<p><i class='wi wi-strong-wind'></i> " + wind + "km/h</p>" +
-						"<p>" + summary +"</p>" + 
+						"<div>" + 
+						"<p><strong>" + day + "<sup>th</sup></strong></p>" +
+						"<div class='row'>" + "<div class='col-xs-6'>" +
+							"<p><i class='wi wi-forecast-io-" + icon + "'></i></p>" + 
+							"<p>Max: " + temperatureMax + "<i class='wi wi-celsius'></i>" +"</p>" + 
+							"<p>Min: " + temperatureMin + "<i class='wi wi-celsius'></i>" +"</p>" + 
+							"<p><i class='wi wi-strong-wind'></i> " + wind + "km/h</p>" +
+							"<p>" + summary +"</p>" + 
+						"</div>" + "<div class='col-xs-6'>" +
+							"<p>Chance of rain: " + chanceOfRain + "%</p>" +
+							"<p>Sunrise: " + sunrise + "</p>" +
+							"<p>Sunset: " + sunset + "</p>" + 
+							"<p>Visibility: " + visibility + "km</p>" +
+							"<p>Cloud cover: " + cloudCover + "%</p>" +
 						"</div>");
 					}
 					$('#forecast-daily').slick({
@@ -147,12 +157,7 @@ $(document).ready(function(){
 		        mobileFirst : true
 		      });
 				}
-
-
-
-
-
-			hourForecaster(9);
+			hourForecaster(12);
 			dayForecaster(8);
 				} // end of AJAX success function
 			}); // end of AJAX call
@@ -162,7 +167,7 @@ $(document).ready(function(){
 
 $("#clouds").jQlouds({
 	minClouds : 3,
-	maxClouds : 5,
+	maxClouds : 7,
 	maxWidth : 150,
 	maxHeight : 80,
 	wind : true

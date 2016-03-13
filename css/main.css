@@ -749,6 +749,9 @@ body {
   color: #000;
   font-family: Quicksand, sans-serif; }
 
+footer {
+  text-align: center; }
+
 .container {
   max-width: 960px;
   text-align: center; }
