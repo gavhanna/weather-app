@@ -116,8 +116,8 @@ $(document).ready(function(){
 					$('#forecast-hour').slick({
 						arrows : false,
 		        dots : true,
-		        rows : 1,
-		        slidesPerRow : 1
+		        slidesToShow : 3,
+		        slidesToScroll : 3
 		      });
 				}
 
