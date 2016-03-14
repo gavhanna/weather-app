@@ -23,14 +23,14 @@ $(document).ready(function(){
 					hh = d.getHours(),
 					h = hh,
 					min = ('0' + d.getMinutes()).slice(-2),		// Add leading 0.
-					ampm = 'AM',
+					ampm = 'am',
 					time;		
 				if (hh > 12) {
 					h = hh - 12;
-					ampm = 'PM';
+					ampm = 'pm';
 				} else if (hh === 12) {
 					h = 12;
-					ampm = 'PM';
+					ampm = 'pm';
 				} else if (hh == 0) {
 					h = 12;
 				}
@@ -46,15 +46,15 @@ $(document).ready(function(){
 						hh = d.getHours(),
 						h = hh,
 						min = ('0' + d.getMinutes()).slice(-2),		// Add leading 0.
-						ampm = 'AM',
+						ampm = 'am',
 						time;
 							
 					if (hh > 12) {
 						h = hh - 12;
-						ampm = 'PM';
+						ampm = 'pm';
 					} else if (hh === 12) {
 						h = 12;
-						ampm = 'PM';
+						ampm = 'pm';
 					} else if (hh == 0) {
 						h = 12;
 					}
@@ -81,7 +81,7 @@ $(document).ready(function(){
 				// Change the background color depending on the temperature
 				var tempCelsius = parseInt((5/9) * (data.currently.temperature - 32));
 				if (tempCelsius < 0){
-					$("body").css("background-color", "#eee");
+					$("body").css("background-color", "#EEEEEE");
 				} else if (tempCelsius < 5){
 					$("body").css("background-color", "#69E2E8");
 				} else if (tempCelsius < 10) {
@@ -183,7 +183,7 @@ $(document).ready(function(){
 			        mobileFirst : true
 			      });
 					}
-			hourForecaster(12);
+			hourForecaster(15);
 			dayForecaster(7);
 				} // end of AJAX success function
 			}); // end of AJAX call
