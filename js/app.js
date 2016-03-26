@@ -1,11 +1,11 @@
 $(document).ready(function(){
-	$("#clouds").jQlouds({
-		minClouds : 3,
-		maxClouds : 7,
-		maxWidth : 150,
-		maxHeight : 80,
-		wind : true
-	});    
+	// $("#clouds").jQlouds({
+	// 	minClouds : 3,
+	// 	maxClouds : 7,
+	// 	maxWidth : 150,
+	// 	maxHeight : 80,
+	// 	wind : true
+	// });
 	if (navigator.geolocation) {
 	  	navigator.geolocation.getCurrentPosition(function(position) {
 
@@ -13,9 +13,9 @@ $(document).ready(function(){
 	    var lati = position.coords.latitude,
 		    longi = position.coords.longitude,
 				url = "https://api.forecast.io/forecast/e9b17063eb0eb18dd082154493fd5361/" + lati + "," + longi,
-				openweatherURL = "http://api.openweathermap.org/data/2.5/weather?lat=" + 
+				openweatherURL = "http://api.openweathermap.org/data/2.5/weather?lat=" +
 				lati + "&lon=" + longi +
-				"&appid=b1b15e88fa797225412429c1c50c122a"; 
+				"&appid=b1b15e88fa797225412429c1c50c122a";
 
 			// Function for converting UNIX to human-readable time!
 			function UNIXtoHour(timestamp) {
@@ -24,7 +24,7 @@ $(document).ready(function(){
 					h = hh,
 					min = ('0' + d.getMinutes()).slice(-2),		// Add leading 0.
 					ampm = 'am',
-					time;		
+					time;
 				if (hh > 12) {
 					h = hh - 12;
 					ampm = 'pm';
@@ -34,7 +34,7 @@ $(document).ready(function(){
 				} else if (hh == 0) {
 					h = 12;
 				}
-				time = h + ':' + min + ' ' + ampm;	
+				time = h + ':' + min + ' ' + ampm;
 				return time;
 				}
 
@@ -48,7 +48,6 @@ $(document).ready(function(){
 						min = ('0' + d.getMinutes()).slice(-2),		// Add leading 0.
 						ampm = 'am',
 						time;
-							
 					if (hh > 12) {
 						h = hh - 12;
 						ampm = 'pm';
@@ -81,30 +80,30 @@ $(document).ready(function(){
 				// Change the background color depending on the temperature
 				var tempCelsius = parseInt((5/9) * (data.currently.temperature - 32));
 				if (tempCelsius < 0){
-					$("body").css("background-color", "#EEEEEE");
+					$("#temp").css("color", "#EEEEEE");
 				} else if (tempCelsius < 5){
-					$("body").css("background-color", "#69E2E8");
+					$("#temp").css("color", "#69E2E8");
 				} else if (tempCelsius < 10) {
-					$("body").css("background-color", "#A0FF74");
+					$("#temp").css("color", "#A0FF74");
 				} else if (tempCelsius < 15) {
-					$("body").css("background-color", "#FFCE75");
+					$("#temp").css("color", "#FFCE75");
 				} else if (tempCelsius < 20) {
-					$("body").css("background-color", "#E86969");
+					$("#temp").css("color", "#E86969");
 				} else if (tempCelsius < 25) {
-					$("body").css("background-color", "#E84630");
+					$("#temp").css("color", "#E84630");
 				} else if (tempCelsius > 25) {
-					$("body").css("background-color", "#E8250C");
+					$("#temp").css("color", "#E8250C");
 				}
 
 				// Jam current weather into the DOM
 				$("#temp").html(tempCelsius + "<i class='wi wi-celsius'></i> ");
 				$("#temp").append("<span class='subtext'>Feels like " + parseInt((5/9) * (data.currently.apparentTemperature - 32)) + "<i class='wi wi-celsius'></i></span>");
 					// Switch between C and F. No real reason to actually do this.
-					var celsius = true;	
+					var celsius = true;
 					$("#temp").click(function(){
 						if (celsius) {
 							$("#temp").html(parseInt(data.currently.temperature) + "<i class='wi wi-fahrenheit'></i>");
-							$("#temp").append("<span class='subtext'>Feels like " + data.currently.apparentTemperature + "<i class='wi wi-celsius'></i></span>");
+							$("#temp").append("<span class='subtext'>Feels like " + data.currently.apparentTemperature + "<i class='wi wi-fahrenheit'></i></span>");
 							celsius = false;
 						} else {
 							$("#temp").html(tempCelsius + "<i class='wi wi-celsius'></i>");
@@ -128,11 +127,11 @@ $(document).ready(function(){
 						 	feelsLike = parseInt((5/9) * (data.hourly.data[i].apparentTemperature - 32)),
 						 	wind = (data.hourly.data[i].windSpeed * 1.61).toFixed(1);
 						 	$("#forecast-hour").append(
-							"<div class='col-xs-4'><p><strong>" + time + "</strong></p>" + 
-							"<p><i class='icon wi wi-forecast-io-" + icon + "'></i></p>" + 
-							"<p>" + temperature + "<i class='wi wi-celsius'></i>" +"</p>" + 
+							"<div class='col-xs-4'><p><strong>" + time + "</strong></p>" +
+							"<p><i class='icon wi wi-forecast-io-" + icon + "'></i></p>" +
+							"<p>" + temperature + "<i class='wi wi-celsius'></i>" +"</p>" +
 							"<p class='subtext'>Feels like " + temperature + "<i class='wi wi-celsius'></i>" +"</p>" +
-							"<p><i class='wi wi-strong-wind'></i> " + wind + "km/h</p>" 
+							"<p><i class='wi wi-strong-wind'></i> " + wind + "km/h</p>"
 							+ "</div>");
 						}
 						$('#forecast-hour').slick({
@@ -153,26 +152,26 @@ $(document).ready(function(){
 							sunrise = UNIXtoHour(data.daily.data[i].sunriseTime),
 							sunset = UNIXtoHour(data.daily.data[i].sunsetTime),
 							visibility = ((data.daily.data[i].visibility * 1.61).toFixed(1)),
-							chanceOfRain = data.daily.data[i].precipProbability * 100,
-							cloudCover = (data.daily.data[i].cloudCover * 100).toFixed(1),
+							chanceOfRain = (data.daily.data[i].precipProbability * 100).toFixed(1),
+							cloudCover = parseInt(data.daily.data[i].cloudCover * 100),
 							days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
 							now = new Date(data.daily.data[i].time * 1000),
 							date = UNIXtoDay(data.daily.data[i].time);
 							day = days[now.getDay()];
 
 						$("#forecast-daily").append(
-							"<div>" + 
-							"<p><strong>" + day + " " + date +"</strong><br>" + 
+							"<div>" +
+							"<p><strong>" + day + " " + date +"</strong><br>" +
 							"<i class='icon wi wi-forecast-io-" + icon + "'></i></p>" +
-							"<p>" + summary +"</p>" + 
+							"<p>" + summary +"</p>" +
 							"<div class='row'>" + "<div class='col-xs-6'>" +
-								"<p><strong>Max:</strong> " + temperatureMax + "<i class='wi wi-celsius'></i>" +"</p>" + 
-								"<p><strong>Min:</strong> " + temperatureMin + "<i class='wi wi-celsius'></i>" +"</p>" + 
+								"<p><strong>Max:</strong> " + temperatureMax + "<i class='wi wi-celsius'></i>" +"</p>" +
+								"<p><strong>Min:</strong> " + temperatureMin + "<i class='wi wi-celsius'></i>" +"</p>" +
 								"<p><i class='wi wi-strong-wind'></i> " + wind + "km/h</p>" +
 								"<p><strong>Chance of rain:</strong> " + chanceOfRain + "%</p>" +
 							"</div>" + "<div class='col-xs-6'>" +
 								"<p><strong>Sunrise:</strong> " + sunrise + "</p>" +
-								"<p><strong>Sunset:</strong> " + sunset + "</p>" + 
+								"<p><strong>Sunset:</strong> " + sunset + "</p>" +
 								"<p><strong>Visibility:</strong> " + visibility + "km</p>" +
 								"<p><strong>Cloud cover:</strong> " + cloudCover + "%</p>" +
 							"</div>");
@@ -191,4 +190,3 @@ $(document).ready(function(){
 	} // end of if
 
 }); // end ready
-
