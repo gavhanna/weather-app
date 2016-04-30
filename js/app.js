@@ -95,6 +95,38 @@ $(document).ready(function(){
 					$("#temp").css("color", "#E8250C");
 				}
 
+				$("body").html("<div class='container current-weather'>" +
+		      "<div id='clouds'></div>" +
+		      "<h3>It's the..</h3>" +
+		      "<h1>Weather!</h1>" +
+		      "<h2>Current Weather</h2>" +
+		      "<div class='row'>" +
+		        "<div class='col-sm-6'>" +
+		          "<p id='temp'></p>" +
+		          "<p id='weather'></p>" +
+		          "<p id='wind'></p>" +
+		        "</div>" +
+		        "<div class='col-sm-6'>" +
+		          "<p id='chanceOfRain'></p>" +
+		          "<p id='sunrise'></p>" +
+		          "<p id='sunset'></p>" +
+		        "</div>" +
+		      "</div>" +
+		    "</div>" +
+		    "<div class='container forecast'>" +
+		    "<h2>Hourly</h2>" +
+		      "<div class='row' id='forecast-hour'>" +
+		      "</div>" +
+		    "</div>" +
+		    "<div class='container forecast'>" +
+		    "<h2>Daily</h2>" +
+		      "<div id='forecast-daily'>" +
+		      "</div>" +
+		    "</div>" +
+		    "<footer>" +
+		      "<p>Don't forget to swipe on the Hourly/Daily forecasts!<br>&copy Gav Hanna 2016</p>" +
+		    "</footer>");
+
 				// Jam current weather into the DOM
 				$("#temp").html(tempCelsius + "<i class='wi wi-celsius'></i> ");
 				$("#temp").append("<span class='subtext'>Feels like " + parseInt((5/9) * (data.currently.apparentTemperature - 32)) + "<i class='wi wi-celsius'></i></span>");
@@ -184,9 +216,11 @@ $(document).ready(function(){
 					}
 			hourForecaster(15);
 			dayForecaster(7);
-				} // end of AJAX success function
+				}, // end of AJAX success function
+				error: function(){
+					$("#loading").text("Failed!");
+				}
 			}); // end of AJAX call
 		}); // end of getCurrentPosition
 	} // end of if
-
 }); // end ready
