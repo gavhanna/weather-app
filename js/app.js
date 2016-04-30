@@ -62,14 +62,15 @@ $(document).ready(function(){
 				}
 
 			// Make the AJAX requests
+			
 			// Openweather for location only... TODO: find a better way.
-			$.ajax({
-				url: openweatherURL,
-				dataType: "jsonp",
-				success: function (data) {
-					console.log(data);
-					$(".container h1").html(data.name);
-				}});
+			// $.ajax({
+			// 	url: openweatherURL,
+			// 	dataType: "jsonp",
+			// 	success: function (data) {
+			// 		console.log(data);
+			// 		$(".container h1").html(data.name);
+			// 	}});
 
 			// forecast.io for all weather data
 			$.ajax({
