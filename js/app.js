@@ -76,6 +76,7 @@ $(document).ready(function(){
 			$.ajax({
 				url: url,
 				dataType: "jsonp",
+				async: false,
 				success: function (data) {
 				console.log(data);
 				// Change the background color depending on the temperature
