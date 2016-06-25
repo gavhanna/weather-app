@@ -1,11 +1,4 @@
 $(document).ready(function(){
-	// $("#clouds").jQlouds({
-	// 	minClouds : 3,
-	// 	maxClouds : 7,
-	// 	maxWidth : 150,
-	// 	maxHeight : 80,
-	// 	wind : true
-	// });
 	if (navigator.geolocation) {
 	  	navigator.geolocation.getCurrentPosition(function(position) {
 
@@ -62,20 +55,22 @@ $(document).ready(function(){
 				}
 
 			// Make the AJAX requests
-			
-			// Openweather for location only... TODO: find a better way.
-			// $.ajax({
-			// 	url: openweatherURL,
-			// 	dataType: "jsonp",
-			// 	success: function (data) {
-			// 		console.log(data);
-			// 		$(".container h1").html(data.name);
-			// 	}});
+
+			// TODO: Find a way to display location name.
+			$.ajax({
+				url: "http://api.geonames.org/findNearestAddressJSON?lat=" + lati + "&lng=" + longi + "&username=gavhanna",
+				dataType: "jsonp",
+				async: false,
+				success: function (data) {
+
+				}
+			});
 
 			// forecast.io for all weather data
 			$.ajax({
 				url: url,
 				dataType: "jsonp",
+				async: false,
 				success: function (data) {
 				console.log(data);
 				// Change the background color depending on the temperature
@@ -98,35 +93,35 @@ $(document).ready(function(){
 
 				$("body").html("<div class='container current-weather'>" +
 		      "<div id='clouds'></div>" +
-		      "<h3>It's the..</h3>" +
-		      "<h1>Weather!</h1>" +
-		      "<h2>Current Weather</h2>" +
-		      "<div class='row'>" +
-		        "<div class='col-sm-6'>" +
-		          "<p id='temp'></p>" +
-		          "<p id='weather'></p>" +
-		          "<p id='wind'></p>" +
-		        "</div>" +
-		        "<div class='col-sm-6'>" +
-		          "<p id='chanceOfRain'></p>" +
-		          "<p id='sunrise'></p>" +
-		          "<p id='sunset'></p>" +
-		        "</div>" +
-		      "</div>" +
-		    "</div>" +
-		    "<div class='container forecast'>" +
-		    "<h2>Hourly</h2>" +
-		      "<div class='row' id='forecast-hour'>" +
-		      "</div>" +
-		    "</div>" +
-		    "<div class='container forecast'>" +
-		    "<h2>Daily</h2>" +
-		      "<div id='forecast-daily'>" +
-		      "</div>" +
-		    "</div>" +
-		    "<footer>" +
-		      "<p>Don't forget to swipe on the Hourly/Daily forecasts!<br>&copy Gav Hanna 2016</p>" +
-		    "</footer>");
+			      "<h3>It's the..</h3>" +
+			      "<h1>Weather!</h1>" +
+			      "<h2>Current Weather</h2>" +
+			      "<div class='row'>" +
+			        "<div class='col-sm-6'>" +
+			          "<p id='temp'></p>" +
+			          "<p id='weather'></p>" +
+			          "<p id='wind'></p>" +
+			        "</div>" +
+			        "<div class='col-sm-6'>" +
+			          "<p id='chanceOfRain'></p>" +
+			          "<p id='sunrise'></p>" +
+			          "<p id='sunset'></p>" +
+			        "</div>" +
+			      "</div>" +
+			    "</div>" +
+			    "<div class='container forecast'>" +
+			    "<h2>Hourly</h2>" +
+			      "<div class='row' id='forecast-hour'>" +
+			      "</div>" +
+			    "</div>" +
+			    "<div class='container forecast'>" +
+			    "<h2>Daily</h2>" +
+			      "<div id='forecast-daily'>" +
+			      "</div>" +
+			    "</div>" +
+			    "<footer>" +
+			      "<p>Don't forget to swipe on the Hourly/Daily forecasts!<br>&copy Gav Hanna 2016</p>" +
+			    "</footer>");
 
 				// Jam current weather into the DOM
 				$("#temp").html(tempCelsius + "<i class='wi wi-celsius'></i> ");
