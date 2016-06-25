@@ -73,7 +73,7 @@ $(document).ready(function(){
 				type: "GET",
 				success: function (data) {
 				console.log(data);
-				// Change the background color depending on the temperature
+				// Change the icon color depending on the temperature
 				var tempCelsius = parseInt((5/9) * (data.currently.temperature - 32));
 				if (tempCelsius < 0){
 					$("#temp").css("color", "#EEEEEE");
@@ -213,8 +213,8 @@ $(document).ready(function(){
 			hourForecaster(15);
 			dayForecaster(7);
 				}, // end of AJAX success function
-				error: function(){
-					$("#loading").text("Failed!");
+				error: function(error){
+					$("#loading").text("Failed! " + error);
 				}
 			}); // end of AJAX call
 		}); // end of getCurrentPosition
