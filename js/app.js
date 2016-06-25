@@ -219,4 +219,7 @@ $(document).ready(function(){
 			}); // end of AJAX call
 		}); // end of getCurrentPosition
 	} // end of if
+	else {
+		$("#loading").text("Failed!");
+	}
 }); // end ready
