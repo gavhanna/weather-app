@@ -54,23 +54,10 @@ $(document).ready(function(){
 					return time;
 				}
 
-			// Make the AJAX requests
-
-			// TODO: Find a way to display location name.
-			$.ajax({
-				url: "http://api.geonames.org/findNearestAddressJSON?lat=" + lati + "&lng=" + longi + "&username=gavhanna",
-				dataType: "jsonp",
-				async: false,
-				success: function (data) {
-
-				}
-			});
-
 			// forecast.io for all weather data
 			$.ajax({
 				url: url,
 				dataType: "jsonp",
-				type: "GET",
 				success: function (data) {
 				console.log(data);
 				// Change the icon color depending on the temperature
@@ -91,11 +78,10 @@ $(document).ready(function(){
 					$("#temp").css("color", "#E8250C");
 				}
 
-				$("body").html("<div class='container current-weather'>" +
-		      "<div id='clouds'></div>" +
+				$("body").html("<div class='location'></div><div class='container current-weather'>" +
 			      "<h3>It's the..</h3>" +
 			      "<h1>Weather!</h1>" +
-			      "<h2>Current Weather</h2>" +
+			      "<h2></h2>" +
 			      "<div class='row'>" +
 			        "<div class='col-sm-6'>" +
 			          "<p id='temp'></p>" +
@@ -203,6 +189,11 @@ $(document).ready(function(){
 								"<p><strong>Visibility:</strong> " + visibility + "km</p>" +
 								"<p><strong>Cloud cover:</strong> " + cloudCover + "%</p>" +
 							"</div>");
+
+							$.getJSON("http://freegeoip.net/json/", function(data){
+								$(".current-weather h2").html(data.city);
+								console.log(data.city);
+							});
 						}
 						$('#forecast-daily').slick({
 							arrows : false,
@@ -214,7 +205,7 @@ $(document).ready(function(){
 			dayForecaster(7);
 				}, // end of AJAX success function
 				error: function(error){
-					$("#loading").text("Failed! " + error);
+					$("#loading").text("Failed!");
 				}
 			}); // end of AJAX call
 		}); // end of getCurrentPosition
