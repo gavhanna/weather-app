@@ -502,10 +502,10 @@ footer {
     font-size: 20px;
     color: #eee; }
   .slick-dots li button:before {
-    font-size: 13px;
+    font-size: 10px;
     color: #ec9; }
   .slick-dots li {
-    width: 40px; }
+    width: 35px; }
 
 @media (max-width: 500px) {
   h1 {

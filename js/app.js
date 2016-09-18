@@ -201,8 +201,8 @@ $(document).ready(function(){
 			        mobileFirst : true
 			      });
 					}
-			hourForecaster(15);
-			dayForecaster(7);
+			hourForecaster(21);
+			dayForecaster(8);
 				}, // end of AJAX success function
 				error: function(error){
 					$("#loading").text("Failed!");
