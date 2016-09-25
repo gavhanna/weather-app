@@ -81,7 +81,7 @@ $(document).ready(function(){
 				$("body").html("<div class='location'></div><div class='container current-weather'>" +
 			      "<h3>It's the..</h3>" +
 			      "<h1>Weather!</h1>" +
-			      "<h2></h2>" +
+			      "<h2 id='address'></h2>" +
 			      "<div class='row'>" +
 			        "<div class='col-sm-6'>" +
 			          "<p id='temp'></p>" +
@@ -109,6 +109,12 @@ $(document).ready(function(){
 			      "<p>Don't forget to swipe on the Hourly/Daily forecasts!<br>&copy Gav Hanna 2016</p>" +
 			    "</footer>");
 
+					$.get("http://ipinfo.io", function(response) {
+					    $("#address").html(response.city + ", " + response.region);
+							console.log(response);
+					}, "jsonp");
+
+
 				// Jam current weather into the DOM
 				$("#temp").html(tempCelsius + "<i class='wi wi-celsius'></i> ");
 				$("#temp").append("<span class='subtext'>Feels like " + parseInt((5/9) * (data.currently.apparentTemperature - 32)) + "<i class='wi wi-celsius'></i></span>");
@@ -127,7 +133,7 @@ $(document).ready(function(){
 					});
 				$("#weather").html("<i class='wi wi-forecast-io-" + data.currently.icon + "'></i> " + data.currently.summary);
 				$("#wind").html("<i class='wi wi-strong-wind'></i> " + ((data.currently.windSpeed) * 1.61).toFixed(1) + " km/h");
-				$("#chanceOfRain").html("<i class='wi wi-raindrops'></i> " + data.currently.precipProbability * 100 + "%");
+				$("#chanceOfRain").html("<i class='wi wi-raindrops'></i> " + (data.currently.precipProbability * 100).toFixed(0) + "%");
 				$("#chanceOfRain").append("<span class='subtext'>Chance of rain</span>");
 				$("#sunrise").html("<i class='wi wi-sunrise'></i> " + UNIXtoHour(data.daily.data[0].sunriseTime));
 				$("#sunset").html("<i class='wi wi-sunset'></i> " + UNIXtoHour(data.daily.data[0].sunsetTime));
@@ -201,8 +207,8 @@ $(document).ready(function(){
 			        mobileFirst : true
 			      });
 					}
-			hourForecaster(21);
-			dayForecaster(8);
+			hourForecaster(15);
+			dayForecaster(7);
 				}, // end of AJAX success function
 				error: function(error){
 					$("#loading").text("Failed!");
@@ -211,6 +217,6 @@ $(document).ready(function(){
 		}); // end of getCurrentPosition
 	} // end of if
 	else {
-		$("#loading").text("Failed!");
+		$("#loading").text("Something went wrong!");
 	}
 }); // end ready
