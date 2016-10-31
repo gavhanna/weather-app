@@ -9,31 +9,10 @@ $(document).ready(function(){
 				openweatherURL = "http://api.openweathermap.org/data/2.5/weather?lat=" +
 				lati + "&lon=" + longi +
 				"&appid=b1b15e88fa797225412429c1c50c122a";
+				
 
-			// Function for converting UNIX to human-readable time!
-			function UNIXtoHour(timestamp) {
-				var d = new Date(timestamp * 1000),	// Convert the passed timestamp to milliseconds
-					hh = d.getHours(),
-					h = hh,
-					min = ('0' + d.getMinutes()).slice(-2),		// Add leading 0.
-					ampm = 'am',
-					time;
-				if (hh > 12) {
-					h = hh - 12;
-					ampm = 'pm';
-				} else if (hh === 12) {
-					h = 12;
-					ampm = 'pm';
-				} else if (hh == 0) {
-					h = 12;
-				}
-				time = h + ':' + min + ' ' + ampm;
-				return time;
-				}
-
-				function UNIXtoDay(timestamp) {
+				function UNIXtoHumanReadableTime(timestamp, timeframe) {
 				  var d = new Date(timestamp * 1000),	// Convert the passed timestamp to milliseconds
-						yyyy = d.getFullYear(),
 						mm = ('0' + (d.getMonth() + 1)).slice(-2),	// Months are zero based. Add leading 0.
 						dd = ('0' + d.getDate()).slice(-2),			// Add leading 0.
 						hh = d.getHours(),
@@ -50,8 +29,13 @@ $(document).ready(function(){
 					} else if (hh == 0) {
 						h = 12;
 					}
-					time = dd;
-					return time;
+					if (timeframe === "day") {
+						time = dd;
+						return time;
+					} else if (timeframe === "hour") {
+						time = h + ':' + min + ' ' + ampm;
+						return time;
+					}
 				}
 
 			// forecast.io for all weather data
@@ -81,7 +65,7 @@ $(document).ready(function(){
 				$("body").html("<div class='location'></div><div class='container current-weather'>" +
 			      "<h3>It's the..</h3>" +
 			      "<h1>Weather!</h1>" +
-			      "<h2></h2>" +
+			      "<h2 id='address'></h2>" +
 			      "<div class='row'>" +
 			        "<div class='col-sm-6'>" +
 			          "<p id='temp'></p>" +
@@ -109,6 +93,12 @@ $(document).ready(function(){
 			      "<p>Don't forget to swipe on the Hourly/Daily forecasts!<br>&copy Gav Hanna 2016</p>" +
 			    "</footer>");
 
+					$.get("http://ipinfo.io", function(response) {
+					    $("#address").html(response.city + ", " + response.region);
+							console.log(response);
+					}, "jsonp");
+
+
 				// Jam current weather into the DOM
 				$("#temp").html(tempCelsius + "<i class='wi wi-celsius'></i> ");
 				$("#temp").append("<span class='subtext'>Feels like " + parseInt((5/9) * (data.currently.apparentTemperature - 32)) + "<i class='wi wi-celsius'></i></span>");
@@ -127,15 +117,15 @@ $(document).ready(function(){
 					});
 				$("#weather").html("<i class='wi wi-forecast-io-" + data.currently.icon + "'></i> " + data.currently.summary);
 				$("#wind").html("<i class='wi wi-strong-wind'></i> " + ((data.currently.windSpeed) * 1.61).toFixed(1) + " km/h");
-				$("#chanceOfRain").html("<i class='wi wi-raindrops'></i> " + data.currently.precipProbability * 100 + "%");
+				$("#chanceOfRain").html("<i class='wi wi-raindrops'></i> " + (data.currently.precipProbability * 100).toFixed(0) + "%");
 				$("#chanceOfRain").append("<span class='subtext'>Chance of rain</span>");
-				$("#sunrise").html("<i class='wi wi-sunrise'></i> " + UNIXtoHour(data.daily.data[0].sunriseTime));
-				$("#sunset").html("<i class='wi wi-sunset'></i> " + UNIXtoHour(data.daily.data[0].sunsetTime));
+				$("#sunrise").html("<i class='wi wi-sunrise'></i> " + UNIXtoHumanReadableTime(data.daily.data[0].sunriseTime, "hour"));
+				$("#sunset").html("<i class='wi wi-sunset'></i> " + UNIXtoHumanReadableTime(data.daily.data[0].sunsetTime, "hour"));
 
 				// Function to append a certain amount of hours of forecast
 				var hourForecaster = function(number){
 					for (var i = 0; i < number; i++){
-						var time = UNIXtoHour(data.hourly.data[i].time),
+						var time = UNIXtoHumanReadableTime(data.hourly.data[i].time, "hour"),
 						 	icon = data.hourly.data[i].icon,
 						 	temperature = parseInt((5/9) * (data.hourly.data[i].temperature - 32)),
 						 	feelsLike = parseInt((5/9) * (data.hourly.data[i].apparentTemperature - 32)),
@@ -163,14 +153,14 @@ $(document).ready(function(){
 							temperatureMin = parseInt((5/9) * (data.daily.data[i].temperatureMin - 32)),
 							wind = (data.daily.data[i].windSpeed * 1.61).toFixed(1),
 							summary = data.daily.data[i].summary,
-							sunrise = UNIXtoHour(data.daily.data[i].sunriseTime),
-							sunset = UNIXtoHour(data.daily.data[i].sunsetTime),
+							sunrise = UNIXtoHumanReadableTime(data.daily.data[i].sunriseTime, "hour"),
+							sunset = UNIXtoHumanReadableTime(data.daily.data[i].sunsetTime, "hour"),
 							visibility = ((data.daily.data[i].visibility * 1.61).toFixed(1)),
 							chanceOfRain = (data.daily.data[i].precipProbability * 100).toFixed(1),
 							cloudCover = parseInt(data.daily.data[i].cloudCover * 100),
 							days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
 							now = new Date(data.daily.data[i].time * 1000),
-							date = UNIXtoDay(data.daily.data[i].time);
+							date = UNIXtoHumanReadableTime(data.daily.data[i].time, "day");
 							day = days[now.getDay()];
 
 						$("#forecast-daily").append(
@@ -211,6 +201,6 @@ $(document).ready(function(){
 		}); // end of getCurrentPosition
 	} // end of if
 	else {
-		$("#loading").text("Failed!");
+		$("#loading").text("Something went wrong!");
 	}
 }); // end ready
