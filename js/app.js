@@ -219,4 +219,12 @@ $(document).ready(function(){
 	else {
 		$("#loading").text("Something went wrong!");
 	}
+
+	
+	fbq('track', 'ViewContent', {
+		value: 3.50,
+		currency: 'USD'
+	});
+	console.log("LOL");
+
 }); // end ready
